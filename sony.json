@@ -1,0 +1,8 @@
+{
+    "data_root" : "/home/igor/Desktop/TWCC/Dataset/our_shot_data/Sony_RX100m7",
+    "jpeg_h" : 3648,
+    "jpeg_w" : 5472,
+    "raw_h" : 3672,
+    "raw_w" : 5504,
+    "jpeg_anno" : "Sony_RX100m7_annotation_jpg_all.csv"
+}
