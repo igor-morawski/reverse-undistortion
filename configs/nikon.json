@@ -1,0 +1,11 @@
+{
+    "name" : "nikon",
+    "data_root" : "/work/morawski11/Dataset/our_shot_data/Nikon750",
+    "jpeg_h" : 2624,
+    "jpeg_w" : 3936,
+    "raw_h" : 2640,
+    "raw_w" : 3968,
+    "jpeg_anno" : "configs/Nikon750_annotation_jpg_all.csv",
+    "jpeg_ext" : "JPG",
+    "raw_ext" : "NEF"
+}

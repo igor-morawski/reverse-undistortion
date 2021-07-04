@@ -1,8 +1,0 @@
-{
-    "data_root" : "/home/igor/Desktop/TWCC/Dataset/our_shot_data/Nikon750",
-    "jpeg_h" : 2624,
-    "jpeg_w" : 3936,
-    "raw_h" : 2640,
-    "raw_w" : 3968,
-    "jpeg_anno" : "Nikon750_annotation_jpg_all.csv"
-}
