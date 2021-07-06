@@ -7,5 +7,7 @@
     "raw_w" : 3968,
     "jpeg_anno" : "configs/Nikon750_annotation_jpg_all.csv",
     "jpeg_ext" : "JPG",
-    "raw_ext" : "NEF"
+    "raw_ext" : "NEF",
+    "window_size" : 656,
+    "stride" : 328
 }

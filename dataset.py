@@ -8,13 +8,14 @@ import tqdm
 import json
 from collections import Counter
 
-CONFIG_REQUIRED_FIELDS = ["name", "data_root", "jpeg_h", "jpeg_w", "raw_h", "raw_h", "jpeg_anno", "jpeg_ext", "raw_ext"]
+CONFIG_REQUIRED_FIELDS = ["name", "data_root", "jpeg_h", "jpeg_w", "raw_h", "raw_h", "jpeg_anno", "jpeg_ext", "raw_ext", "window_size", "stride"]
 SUPPORTED_ANNO_EXT = ["csv"]
 ACCEPTED_LINE_LENGTHS = [5, 6]
 ANNO_FIELD_SEP = ","
 
 class Sample_From_File_Name:
     def __init__(self, file_name, data_root, jpeg_ext, raw_ext):
+        self.file_name = file_name
         self.jpeg_filepath = op.join(data_root,file_name.split(".")[0]+"."+jpeg_ext)
         self.raw_filepath = op.join(data_root,file_name.split(".")[0]+"."+raw_ext)
         for f in (self.jpeg_filepath, self.raw_filepath):
@@ -23,9 +24,10 @@ class Sample_From_File_Name:
             tags = exifread.process_file(f) 
         assert tags['EXIF FocalLength']
         self.focal_length = eval(tags['EXIF FocalLength'].printable)
-        
+
 class Sample:
     def __init__(self, jpeg_filepath, raw_filepath, focal_length):
+        self.file_name = op.split(jpeg_filepath)[-1]
         self.jpeg_filepath = jpeg_filepath
         self.raw_filepath = raw_filepath
         self.focal_length = focal_length
@@ -61,6 +63,7 @@ class Dataset:
                 self.samples.append(sample)
         self._original_samples = self.samples.copy()
         self.focal_length = -1
+        self.annotation = None
 
     def _parse_filelist(self, filepath):
         ext = self.jpeg_anno.split(".")[-1].lower()
@@ -107,3 +110,26 @@ class Dataset:
         print(stats)
         print("----------------")
         print(f"Total: {len(focal_lengths)}/{len(self._original_samples)}")
+    
+    def get_anno(self):
+        if self.annotation:
+            return self.annotation
+        self.annotation = {}
+        with self._open_for_csv(self.jpeg_anno) as f:
+            anno = f.readlines()
+        for line in anno: 
+            chunks = line.split(ANNO_FIELD_SEP)
+            assert len(chunks) in ACCEPTED_LINE_LENGTHS
+            file_name = chunks[0]
+            if len(chunks) == 6:
+                x1, y1, x2, y2, class_name = chunks[1:]
+                class_name=class_name.strip()
+            if len(chunks) == 5:
+                x1, y1, x2, y2 = chunks[1:]
+                class_name = ""
+            x1, y1, x2, y2, = [int(v) for v in (x1, y1, x2, y2)]
+            try:
+                self.annotation[file_name] += [[x1, y1, x2, y2, class_name]]
+            except KeyError:
+                self.annotation[file_name] = [[x1, y1, x2, y2, class_name]]
+        return self.annotation
