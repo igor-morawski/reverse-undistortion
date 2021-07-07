@@ -1,6 +1,6 @@
 {
     "name" : "nikon",
-    "data_root" : "/work/morawski11/Dataset/our_shot_data/Nikon750",
+    "data_root" : "/home/igor/Desktop/TWCC/Dataset/our_shot_data/Nikon750",
     "jpeg_h" : 2624,
     "jpeg_w" : 3936,
     "raw_h" : 2640,
@@ -8,6 +8,6 @@
     "jpeg_anno" : "configs/Nikon750_annotation_jpg_all.csv",
     "jpeg_ext" : "JPG",
     "raw_ext" : "NEF",
-    "window_size" : 656,
-    "stride" : 328
+    "window_size" : 328,
+    "stride" : 164
 }

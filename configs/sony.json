@@ -1,6 +1,6 @@
 {   
     "name" : "sony",
-    "data_root" : "/work/morawski11/Dataset/our_shot_data/Sony_RX100m7",
+    "data_root" : "/home/igor/Desktop/TWCC/Dataset/our_shot_data/Sony_RX100m7",
     "jpeg_h" : 3648,
     "jpeg_w" : 5472,
     "raw_h" : 3672,

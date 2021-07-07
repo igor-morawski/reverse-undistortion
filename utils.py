@@ -9,3 +9,12 @@ def read_json(filepath):
     with open(filepath) as f:
         data = json.load(f)
     return data
+
+
+
+def log_msg(msg, log=True):
+    print(msg)
+    if log:
+        with open('align.log', 'a+') as f:
+            f.write(msg+"\n")
+    return True

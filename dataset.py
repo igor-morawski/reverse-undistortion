@@ -101,6 +101,13 @@ class Dataset:
             self.samples = self._original_samples.copy()
         else:
             raise ValueError(f"Invalid focal lenght value ({focal_length}).")
+        self.focal_length = focal_length
+        return True
+
+    def generate_transform_file_name(self, ext="npy"):
+        fl = str(self.focal_length).replace(".","_")
+        nm = self.name
+        return f"{nm}_{fl}.{ext}"
 
     def show_stats(self):
         focal_lengths = [s.focal_length for s in self.samples]
